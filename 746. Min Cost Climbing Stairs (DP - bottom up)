@@ -1,0 +1,20 @@
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        // https://www.youtube.com/watch?v=_i4Yxeh5ceQ&list=LL&index=1&t=1798s
+
+        // approach: 1D memoization DP bottom-up --- time: O(n) --- space: O(1)
+        // 1 5 1 4 0
+        // cur index= min of(next two index)+curr index
+
+        //edgecase
+        if(cost.length==2){
+            return Math.min(cost[0],cost[1]);
+        }
+
+        for(int i=cost.length-3; i>=0; i--){
+            cost[i]=Math.min(cost[i+1],cost[i+2])+cost[i];
+        }
+        return Math.min(cost[0], cost[1]);
+        
+    }
+}
