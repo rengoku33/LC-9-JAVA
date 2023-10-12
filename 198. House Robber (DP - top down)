@@ -1,0 +1,28 @@
+class Solution {
+    public int rob(int[] nums) {
+        // https://www.youtube.com/watch?v=_i4Yxeh5ceQ&list=LL&index=1&t=1798s
+        // approach: 1D memoization using DP top down approach   1 5 7 8 9 4 2 1
+
+        // the goal is to iterate and store the max amount you
+        // can rob till the current iteration in seperate array  
+        int memo[]=new int[nums.length];
+
+        // edgecases (in case the nums is less than 4)
+        if(nums.length==1){
+            return nums[0];
+        }else if(nums.length==2){
+            return Math.max(nums[0], nums[1]);
+        }else if(nums.length==3){
+            return Math.max(nums[0]+nums[2],nums[1]);
+        }
+        
+        // basecase (if nums is greater than 4)
+        memo[0]=nums[0];
+        memo[1]=nums[1];
+        memo[2]=memo[0]+nums[2];
+        for(int i=3;i<nums.length;i++){
+           memo[i]=Math.max(memo[i-2],memo[i-3])+nums[i];
+        }
+        return Math.max(memo[memo.length-1],memo[memo.length-2]);
+    }
+}
