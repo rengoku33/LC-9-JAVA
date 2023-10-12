@@ -1,0 +1,65 @@
+class Solution {
+    public int trap(int[] height) {
+        // https://www.youtube.com/watch?v=ZI2z5pq0TqA
+        // in order to calculate the water stored per iteration -> min(maxleft, maxright) - height[i]
+
+        // approach: two pointer --- time: O(n) --- space O(1)
+
+        // declare LP, RP and count, iterate while(LP<=RP)
+        // declare LPmax, RPmax which stores the max of both pointers respectively
+        // move the pointer with lower value (max value), if LP==RP you can move either
+        // for every move, if LPmax - height[lp] or RPmax - height[rp] >=0 then count++
+        // return count
+        
+        /*int LP=0, RP=height.length-1, count=0;
+        int LPmax=height[LP], RPmax=height[RP];
+        while(LP<RP){
+            if(LPmax<=RPmax){
+                LP++;
+                int result=LPmax-height[LP];
+                if(result>0){
+                   LPmax=height[LP];
+                   count+=result;
+                }
+            }
+            else if(LPmax>RPmax){
+               RP--;
+               int result=RPmax-height[RP];
+                if(result>0){
+                   RPmax=height[RP];
+                   count+=result;
+                }
+            }
+        }
+        return count;*/
+
+        // ok, for some reason we have failed the initial approach of two pointer
+        // so, lets go for another approach
+        // 2nd approach: memoization --- time: O(n) --- space: O(n)
+
+        // declare array of maxleft[], maxright[], max
+        // iterate through 0 -> len, max=max of (max,height[i]) and store max in maxleft
+        // reset max=0 and do the same for maxright
+        // declare int res=0
+        // iterate through 0 -> len,res+= min of(maxleft[i],maxright[i]) - height[i]
+        // return res
+        int[] leftmax = new int[height.length];
+        int[] rightmax = new int[height.length];
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < height.length; i++){
+            max = Math.max(max,height[i]);
+            leftmax[i] = max;
+        }
+        max = Integer.MIN_VALUE;
+         for (int i = height.length -1; i >= 0; i--){
+            max = Math.max(max,height[i]);
+            rightmax[i] = max;
+        }
+        int res = 0;
+        for (int i = 0;i < height.length;i++){
+            res += Math.min(leftmax[i],rightmax[i]) - height[i];
+        }
+        return res;
+    }
+}
