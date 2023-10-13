@@ -1,15 +1,25 @@
 class Solution {
     public boolean containsDuplicate(int[] nums) {
+       // learnt how to iterate through hashmap
+       // foreach method, foreach loop, iterator
+
        // approach: hashmap --- time: O(n) --- space: O(n)
        // store in hashmap 
-       // iterate hashmap, if value > 1, return true 
+       // if it contains key (it means we already have it) return true 
+
+
        HashMap<Integer,Integer> hash = new HashMap<>();
        for(int i=0; i<nums.length; i++){
+           if(hash.containsKey(nums[i])){
+               return true;
+           }
            hash.put(nums[i],hash.getOrDefault(nums[i],0)+1);
        }
+
+
         // Looping through the HashMap
         // Using for-each loop
-        for (Map.Entry<Integer,Integer> mapElement : hash.entrySet()) {
+        /* for (Map.Entry<Integer,Integer> mapElement : hash.entrySet()) {
             int key = mapElement.getKey();
  
             // Adding some bonus marks to all the students
@@ -17,7 +27,7 @@ class Solution {
             if(value>1){
                 return true;
             }
-        }
+        }*/
         return false;
     }
 }
