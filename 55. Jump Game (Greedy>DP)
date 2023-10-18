@@ -1,0 +1,18 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        // approach: greedy --- time: O(n) --- space: O(1)
+        // set goal to len-1
+        // the point is to start from len-2, and if len-2 is achieveable reset goal
+
+
+        int goal = nums.length-1;
+        for(int i=nums.length-2; i>=0; i--){
+            if(nums[i]+i>=goal){
+                goal=i;
+            }else{
+                continue;
+            }
+        }
+        return goal==0 ? true:false;
+    }
+}
