@@ -1,5 +1,7 @@
 class Solution {
     public int maxProfit(int[] prices) {
+        // https://www.youtube.com/watch?v=1pkOgXD63yU&list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf&index=2 
+
         // approach: two pointer --- time: O(n) --- space: O(1)
         // profit = rp val - lp val 
         // lp = 0, rp = 1
