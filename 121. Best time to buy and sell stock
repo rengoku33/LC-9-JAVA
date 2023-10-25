@@ -1,0 +1,23 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        // approach: two pointer --- time: O(n) --- space: O(1)
+        // profit = rp val - lp val 
+        // lp = 0, rp = 1
+        // if lp>rp, lp=rp rp=lp+1 when we iterate and find lp is bigger than rp, we jump lp and rp++
+        // else calc max pro and rp++
+        
+        int lp=0, rp=1;
+        int max=0;
+        while(rp<prices.length){
+            if(prices[lp]>prices[rp]){
+                lp=rp;
+                rp=lp+1;
+            }
+            else{
+                max=Math.max(max,prices[rp]-prices[lp]);
+                rp++;
+            }
+        }
+        return max;
+    }
+}
