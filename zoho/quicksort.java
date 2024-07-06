@@ -1,48 +1,54 @@
 import java.util.*;
-public class Main
 /*
-take the last element as pivot, two pointers l and r,
-while l<r
-    iterate l till arr[l]>pivot and vice verca for r,
-    swap val of l and r
-now swap l with pivot
+take the last element as pivot,
+while l<=r
+    iterate l till l val bigger than pivot and vice verca,
+    swap l and r,
+now l has crossed r, swap pivot with l and return l
 */
+public class Main
 {
 	public static void main(String[] args) {
-    int[] arr = {77,33,63,5,16,55,11,1,44};
-    qss(arr, 0, arr.length-1);
-	System.out.println(Arrays.toString(arr));
-	}
-	
-	public static void qss(int[] arr, int start, int end){
-	    if(start<end){
-	        int partition_pos = partitioner(arr, start, end);
-	        qss(arr, start, partition_pos-1);
-	        qss(arr, partition_pos+1, end);
-	        
+	    int[] arr = {33,77,55,1,11,44,63};
+	    qss(arr, 0, arr.length-1);
+	    System.out.println(Arrays.toString(arr));
 	    }
-	}
 	
-	public static int partitioner(int[] arr, int start, int end){
-	    int pivot = arr[end], l=start, r=end-1;
-	    while(l<=r){
-	        if(arr[l]<pivot){
-	            l++;
-	            continue;
-	        }
-	        if(arr[r]>pivot){
-	            r--;
-	            continue;
-	        }
-	        // now we reach a point where l is bigger than pivot and r is smaller
-	        int temp = arr[l];
-	        arr[l] = arr[r];
-	        arr[r] = temp;
-	        l++;r--;
+	// helper method
+	public static void qss(int[] arr, int left, int right){
+	    if(left<=right){
+	        int partition_pos = partitioner(arr, left, right);
+	        qss(arr, left, partition_pos-1);
+	        qss(arr, partition_pos+1, right);    
 	    }
-	    // now l has crossed r, swap pivot with l
-	    arr[end] = arr[l];
-	    arr[l] = pivot;
-	    return l;
+	    
 	}
+	public static int partitioner(int[] arr, int left, int right){
+	    int pivot = right;
+	    int i = left;
+	    int j = right-1;
+	    while(i<=j){
+	        while(arr[i]<=arr[pivot] && i<right){
+	            i++;
+	        }
+	        while(arr[j]>=arr[pivot] && j>left){
+	            j--;
+	        }
+	        // found swap elements
+	        if(i<j){
+	            int temp = arr[i];
+	            arr[i] = arr[j];
+	            arr[j] = temp;
+	            
+	            i++;j--;
+	        }
+	    }
+	    // l has crossed r
+            int temp = arr[i];
+	    arr[i] = arr[pivot];
+	    arr[pivot] = temp;	    
+	    return i;
+	}
+
+	
 }
